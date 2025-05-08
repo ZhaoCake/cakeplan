@@ -94,15 +94,6 @@ const CreateGoalForm: React.FC<CreateGoalFormProps> = ({ visible, onClose, onSuc
     return (current && current < dayjs().startOf('day')) || (startDate && current < startDate);
   };
 
-  const disabledPlanStartDate = (current: dayjs.Dayjs, index: number) => {
-    const goalStartDate = form.getFieldValue('startDate');
-    const goalEndDate = form.getFieldValue('endDate');
-    
-    if (!goalStartDate || !goalEndDate) return true;
-    
-    return current < goalStartDate || current > goalEndDate;
-  };
-
   const disabledPlanEndDate = (current: dayjs.Dayjs, index: number) => {
     const goalStartDate = form.getFieldValue('startDate');
     const goalEndDate = form.getFieldValue('endDate');
@@ -241,7 +232,7 @@ const CreateGoalForm: React.FC<CreateGoalFormProps> = ({ visible, onClose, onSuc
                       <DatePicker 
                         style={{ width: '100%' }} 
                         format="YYYY-MM-DD"
-                        disabledDate={(current) => disabledPlanStartDate(current, field.name)}
+                        disabledDate={(current) => disabledStartDate(current)}
                       />
                     </Form.Item>
 
