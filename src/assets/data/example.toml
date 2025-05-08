@@ -1,0 +1,45 @@
+[goal]
+title = "完成个人网站开发"
+description = "开发一个展示个人项目和技能的网站"
+start_date = "2025-05-10"
+end_date = "2025-06-10"
+
+[[plans]]
+title = "设计网站原型"
+description = "使用Figma设计网站的UI/UX原型"
+start_date = "2025-05-10"
+end_date = "2025-05-15"
+
+[[plans]]
+title = "构建前端框架"
+description = "使用React创建网站的基本结构和组件"
+start_date = "2025-05-16"
+end_date = "2025-05-25"
+
+[[plans]]
+title = "实现主要功能"
+description = "开发项目展示、技能列表和联系表单等功能"
+start_date = "2025-05-26"
+end_date = "2025-06-02"
+
+[[plans]]
+title = "测试和优化"
+description = "进行性能测试、兼容性测试和SEO优化"
+start_date = "2025-06-03"
+end_date = "2025-06-08"
+
+[[plans]]
+title = "部署上线"
+description = "将网站部署到服务器并配置域名"
+start_date = "2025-06-09"
+end_date = "2025-06-10"
+
+[[logs]]
+date = "2025-05-10"
+content = "开始设计网站原型，收集了一些优秀的个人网站作为参考"
+related_plans = ["设计网站原型"]
+
+[[logs]]
+date = "2025-05-12"
+content = "完成了首页和项目页面的设计稿"
+related_plans = ["设计网站原型"]
