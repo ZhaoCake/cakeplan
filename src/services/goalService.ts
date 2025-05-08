@@ -1,5 +1,5 @@
 import type { Goal, LogEntry } from '../types';
-import { calculateProgress, determineStatus, createGoalFromToml, parseTomlConfig } from '../utils/tomlParser';
+import { calculateProgress, determineStatus, createGoalFromToml, parseTomlConfig, exportGoalToToml } from '../utils/tomlParser';
 import { v4 as uuidv4 } from 'uuid';
 
 // 本地存储的键名
@@ -110,4 +110,40 @@ export const importGoalFromToml = (tomlString: string): Goal => {
   const goal = createGoalFromToml(config);
   addGoal(goal);
   return goal;
+};
+
+/**
+ * 导出目标为TOML字符串
+ */
+export const exportGoalToTomlString = (goalId: string): string | null => {
+  const goal = getGoalById(goalId);
+  if (!goal) return null;
+  
+  return exportGoalToToml(goal);
+};
+
+/**
+ * 下载目标为TOML文件
+ */
+export const downloadGoalAsToml = (goalId: string): void => {
+  const tomlString = exportGoalToTomlString(goalId);
+  if (!tomlString) return;
+  
+  const goal = getGoalById(goalId);
+  const filename = `${goal?.title.replace(/[^a-zA-Z0-9]/g, '_').toLowerCase() || 'goal'}_${new Date().getTime()}.toml`;
+  
+  const blob = new Blob([tomlString], { type: 'text/plain;charset=utf-8' });
+  const url = URL.createObjectURL(blob);
+  
+  const link = document.createElement('a');
+  link.href = url;
+  link.download = filename;
+  document.body.appendChild(link);
+  link.click();
+  
+  // 清理
+  setTimeout(() => {
+    document.body.removeChild(link);
+    URL.revokeObjectURL(url);
+  }, 100);
 };

@@ -1,8 +1,9 @@
+/* 重置根元素样式 */
 #root {
-  max-width: 1280px;
-  margin: 0 auto;
-  padding: 2rem;
-  text-align: center;
+  width: 100%;  
+  margin: 0;
+  padding: 0;
+  text-align: left;
 }
 
 .logo {
@@ -39,4 +40,123 @@
 
 .read-the-docs {
   color: #888;
+}
+
+/* 容器宽度控制 - 更严格的响应式布局 */
+.site-container {
+  width: 100%;
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 0 16px;
+  box-sizing: border-box;
+}
+
+/* 卡片统一样式 */
+.goal-card {
+  height: 100%;
+  transition: all 0.3s;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.12), 0 1px 2px rgba(0, 0, 0, 0.24);
+  border-radius: 8px;
+  overflow: hidden;
+}
+
+.goal-card:hover {
+  box-shadow: 0 3px 6px rgba(0, 0, 0, 0.16), 0 3px 6px rgba(0, 0, 0, 0.23);
+  transform: translateY(-2px);
+}
+
+/* 背景样式 */
+.site-layout-background {
+  background: #f0f2f5;
+}
+
+/* 固定高度的卡片容器 */
+.fixed-height-card {
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+}
+
+.fixed-height-card .ant-card-body {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+}
+
+/* 移动端菜单样式 */
+.mobile-menu {
+  position: fixed;
+  z-index: 100;
+  right: 0;
+  top: 64px;
+  width: 200px;
+}
+
+/* 页面标题样式 */
+.page-title {
+  margin-bottom: 24px;
+  border-left: 4px solid #1890ff;
+  padding-left: 12px;
+}
+
+/* 表单项间距 */
+.form-spacing .ant-form-item {
+  margin-bottom: 16px;
+}
+
+/* 目标详情页面卡片间距 */
+.goal-detail-card {
+  margin-bottom: 24px;
+}
+
+/* 目标列表栅格系统 */
+.goal-grid {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 24px;
+  width: 100%;
+}
+
+/* 响应式布局断点 - 确保始终依赖浏览器宽度 */
+@media screen and (min-width: 576px) {
+  .goal-grid {
+    grid-template-columns: 1fr;
+  }
+}
+
+@media screen and (min-width: 768px) {
+  .goal-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+@media screen and (min-width: 992px) {
+  .goal-grid {
+    grid-template-columns: repeat(3, 1fr);
+  }
+}
+
+/* 确保内容区域铺满可用空间 */
+.full-height-content {
+  min-height: calc(100vh - 64px - 70px);
+  display: flex;
+  flex-direction: column;
+}
+
+/* 确保卡片固定高度 */
+.equal-height-col {
+  display: flex;
+  flex-direction: column;
+}
+
+.equal-height-col .ant-card {
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+}
+
+.equal-height-col .ant-card-body {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
 }

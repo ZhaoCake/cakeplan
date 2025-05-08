@@ -34,7 +34,7 @@ const GoalCard: React.FC<GoalCardProps> = ({ goal, onClick }) => {
     <Card 
       hoverable
       onClick={onClick}
-      style={{ marginBottom: 16 }}
+      className="goal-card fixed-height-card"
     >
       <Space direction="vertical" style={{ width: '100%' }}>
         <Space>
@@ -42,9 +42,21 @@ const GoalCard: React.FC<GoalCardProps> = ({ goal, onClick }) => {
           <Tag color={color as any} icon={icon}>{text}</Tag>
         </Space>
 
-        <Text>{goal.description}</Text>
+        <Text
+          style={{ 
+            height: '40px', 
+            overflow: 'hidden', 
+            textOverflow: 'ellipsis', 
+            display: '-webkit-box',
+            WebkitLineClamp: 2,
+            WebkitBoxOrient: 'vertical',
+            flex: '1 0 auto'
+          }}
+        >
+          {goal.description}
+        </Text>
         
-        <Space>
+        <Space style={{ marginTop: 'auto' }}>
           <Text type="secondary">开始日期: {dayjs(goal.startDate).format('YYYY-MM-DD')}</Text>
           <Text type="secondary">结束日期: {dayjs(goal.endDate).format('YYYY-MM-DD')}</Text>
         </Space>
@@ -62,7 +74,15 @@ const GoalCard: React.FC<GoalCardProps> = ({ goal, onClick }) => {
                 : `已过期 ${Math.abs(remainingDays)} 天`}
             </Text>
           </div>
-          <Progress percent={goal.progress} status={goal.status === 'failed' ? 'exception' : undefined} />
+          <Progress 
+            percent={goal.progress} 
+            status={goal.status === 'failed' ? 'exception' : undefined}
+            strokeColor={{
+              '0%': '#108ee9',
+              '100%': goal.status === 'completed' ? '#52c41a' : 
+                     goal.status === 'failed' ? '#ff4d4f' : '#108ee9',
+            }}
+          />
         </Space>
       </Space>
     </Card>

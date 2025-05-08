@@ -106,3 +106,66 @@ export const determineStatus = (
   // 如果在日期范围内
   return 'in-progress';
 };
+
+/**
+ * 将目标导出为TOML格式字符串
+ * @param goal 目标对象
+ * @returns TOML格式的字符串
+ */
+export const exportGoalToToml = (goal: Goal): string => {
+  // 目标基本信息
+  let tomlString = `[goal]
+title = "${escapeToml(goal.title)}"
+description = "${escapeToml(goal.description)}"
+start_date = "${goal.startDate}"
+end_date = "${goal.endDate}"
+
+`;
+
+  // 计划列表
+  goal.plans.forEach(plan => {
+    tomlString += `[[plans]]
+title = "${escapeToml(plan.title)}"
+description = "${escapeToml(plan.description)}"
+start_date = "${plan.startDate}"
+end_date = "${plan.endDate}"
+
+`;
+  });
+
+  // 日志记录
+  if (goal.logs.length > 0) {
+    goal.logs.forEach(log => {
+      // 查找与该日志相关的计划标题
+      const relatedPlanTitles = log.relatedPlanIds
+        .map(planId => goal.plans.find(p => p.id === planId)?.title || '')
+        .filter(title => title !== '');
+      
+      tomlString += `[[logs]]
+date = "${log.date}"
+content = "${escapeToml(log.content)}"
+`;
+      
+      if (relatedPlanTitles.length > 0) {
+        tomlString += `related_plans = [${relatedPlanTitles.map(title => `"${escapeToml(title)}"`).join(', ')}]
+
+`;
+      } else {
+        tomlString += `
+`;
+      }
+    });
+  }
+
+  return tomlString;
+};
+
+/**
+ * 转义TOML中的特殊字符
+ */
+const escapeToml = (str: string): string => {
+  return str
+    .replace(/\\/g, '\\\\')  // 反斜杠
+    .replace(/"/g, '\\"')    // 双引号
+    .replace(/\n/g, '\\n');  // 换行符
+};
