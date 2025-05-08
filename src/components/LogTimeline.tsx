@@ -1,5 +1,5 @@
 import React from 'react';
-import { Timeline, Typography, Card, Grid } from 'antd';
+import { Timeline, Typography, Grid } from 'antd';
 import type { LogEntry, Plan } from '../types';
 import dayjs from 'dayjs';
 
